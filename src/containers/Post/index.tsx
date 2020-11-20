@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {View, ScrollView, Text} from 'react-native';
 import styles from './styles';
 
 const Post = ({route}) => {
@@ -7,7 +7,9 @@ const Post = ({route}) => {
   return (
     <View style={styles.container}>
       <Text style={styles.postTitle}>{post.title}</Text>
-      <Text style={styles.postBody}>{post.body}</Text>
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <Text style={styles.postBody}>{post.body}</Text>
+      </ScrollView>
     </View>
   );
 };

@@ -8,6 +8,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-start',
   },
+  scrollContainer: {
+    flex: 0,
+    paddingBottom: 20,
+  },
   postTitle: {
     fontSize: 16,
     fontWeight: 'bold',
