@@ -1,16 +1,20 @@
 import React from 'react';
+import {ApolloProvider} from '@apollo/react-hooks';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Home from '../containers/Home';
+import client from '../apolloClient';
 
 const Stack = createStackNavigator();
 
 const Navigator = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Home" component={Home} />
-      </Stack.Navigator>
+      <ApolloProvider client={client()}>
+        <Stack.Navigator>
+          <Stack.Screen name="Home" component={Home} />
+        </Stack.Navigator>
+      </ApolloProvider>
     </NavigationContainer>
   );
 };
