@@ -14,4 +14,13 @@ const PUBLISHED_POSTS = gql`
   }
 `;
 
-export {PUBLISHED_POSTS};
+const PROFILE = gql`
+  query me {
+    me {
+      name
+      email
+    }
+  }
+`;
+
+export {PROFILE, PUBLISHED_POSTS};

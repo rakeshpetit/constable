@@ -1,8 +1,10 @@
 import {useQuery, useMutation} from '@apollo/react-hooks';
-import {PUBLISHED_POSTS} from '../graphql/queries';
+import {PUBLISHED_POSTS, PROFILE} from '../graphql/queries';
 import {LOGIN_USER} from '../graphql/mutations';
 import {posts} from '../graphql/queries/types/posts';
+import {me_me} from '../graphql/queries/types/me';
 import {LoginUserVariables} from '../graphql/mutations/types/LoginUser';
+import Storage from '../Storage';
 
 const useGetPosts = (): posts | false => {
   const {loading, error, data} = useQuery(PUBLISHED_POSTS);
@@ -10,6 +12,16 @@ const useGetPosts = (): posts | false => {
     return false;
   } else if (data) {
     return data;
+  }
+  return false;
+};
+
+const useGetProfile = (): me_me | false => {
+  const {loading, error, data} = useQuery(PROFILE);
+  if (loading || error) {
+    return false;
+  } else if (data) {
+    return data.me;
   }
   return false;
 };
@@ -25,16 +37,23 @@ const useLogin = () => {
     })
       .then(({data}) => {
         if (data) {
-          return data.login.token;
+          const token = data.login.token;
+          Storage.setSession(token);
+          return token;
         } else if (error) {
           return error;
         } else if (loading) {
           return true;
         }
       })
-      .catch((err) => err);
+      .catch(() => false);
   };
-  return {loginPress};
+
+  const logoutPress = () => {
+    Storage.deleteSession();
+  };
+
+  return {loginPress, logoutPress};
 };
 
-export {useGetPosts, useLogin};
+export {useGetPosts, useGetProfile, useLogin};

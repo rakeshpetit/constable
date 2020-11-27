@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 import {useLogin} from '../../../hooks';
+import Profile from '../Profile';
 import styles from './styles';
 
 const SignIn = () => {
@@ -9,14 +10,29 @@ const SignIn = () => {
     password: '',
   });
 
-  const {loginPress} = useLogin();
+  const [authenticated, setAuthenticated] = useState(false);
+
+  const {loginPress, logoutPress} = useLogin();
 
   const onLoginPress = async () => {
     const data = await loginPress(fields);
-    console.log('data', data);
+    if (data) {
+      setAuthenticated(true);
+    }
   };
 
-  return (
+  const onLogoutPress = () => {
+    logoutPress();
+    setAuthenticated(false);
+    setFields({
+      email: '',
+      password: '',
+    });
+  };
+
+  return authenticated ? (
+    <Profile onLogoutPress={onLogoutPress} />
+  ) : (
     <View style={styles.container}>
       <Text style={styles.title}>Log In</Text>
       <View style={styles.fieldContainer}>
