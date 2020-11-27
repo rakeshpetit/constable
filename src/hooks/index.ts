@@ -1,6 +1,7 @@
 import {useQuery, useMutation} from '@apollo/react-hooks';
 import {PUBLISHED_POSTS} from '../graphql/queries';
 import {LOGIN_USER} from '../graphql/mutations';
+import {LoginUserVariables} from '../graphql/mutations/types/LoginUser';
 
 const useGetPosts = () => {
   const {loading, error, data} = useQuery(PUBLISHED_POSTS);
@@ -11,14 +12,9 @@ const useGetPosts = () => {
   }
 };
 
-type LOGIN = {
-  email: String;
-  password: String;
-};
-
 const useLogin = () => {
   const [loginUser, {error, loading}] = useMutation(LOGIN_USER);
-  const loginPress = ({email, password}: LOGIN) => {
+  const loginPress = ({email, password}: LoginUserVariables) => {
     return loginUser({
       variables: {
         email,
