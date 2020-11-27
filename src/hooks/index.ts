@@ -1,9 +1,10 @@
 import {useQuery, useMutation} from '@apollo/react-hooks';
 import {PUBLISHED_POSTS, PROFILE} from '../graphql/queries';
-import {LOGIN_USER} from '../graphql/mutations';
+import {LOGIN_USER, REGISTER_USER} from '../graphql/mutations';
 import {posts} from '../graphql/queries/types/posts';
 import {me_me} from '../graphql/queries/types/me';
 import {LoginUserVariables} from '../graphql/mutations/types/LoginUser';
+import {RegisterUserVariables} from '../graphql/mutations/types/RegisterUser';
 import Storage from '../Storage';
 
 const useGetPosts = (): posts | false => {
@@ -56,4 +57,31 @@ const useLogin = () => {
   return {loginPress, logoutPress};
 };
 
-export {useGetPosts, useGetProfile, useLogin};
+const useRegister = () => {
+  const [registerUser, {error, loading}] = useMutation(REGISTER_USER);
+  const registerPress = ({email, name, password}: RegisterUserVariables) => {
+    return registerUser({
+      variables: {
+        email,
+        name,
+        password,
+      },
+    })
+      .then(({data}) => {
+        if (data) {
+          const token = data.createUser.token;
+          Storage.setSession(token);
+          return token;
+        } else if (error) {
+          return error;
+        } else if (loading) {
+          return true;
+        }
+      })
+      .catch(() => false);
+  };
+
+  return {registerPress};
+};
+
+export {useGetPosts, useGetProfile, useRegister, useLogin};

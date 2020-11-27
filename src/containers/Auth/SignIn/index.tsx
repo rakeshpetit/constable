@@ -4,7 +4,7 @@ import {useLogin} from '../../../hooks';
 import Profile from '../Profile';
 import styles from './styles';
 
-const SignIn = () => {
+const SignIn = ({navigation}: any) => {
   const [fields, setFields] = useState({
     email: '',
     password: '',
@@ -65,6 +65,13 @@ const SignIn = () => {
       </View>
       <TouchableOpacity onPress={onLoginPress} style={styles.button}>
         <Text style={styles.buttonText}>Log In</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.registerButton}
+        onPress={() => {
+          navigation.navigate('Sign Up');
+        }}>
+        <Text style={styles.registerText}>Need to Register ?</Text>
       </TouchableOpacity>
     </View>
   );

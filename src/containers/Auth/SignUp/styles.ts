@@ -13,12 +13,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     paddingVertical: 20,
   },
-  registerText: {
-    fontSize: 16,
-    color: 'blue',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
   buttonText: {
     fontSize: 20,
     color: 'white',
@@ -48,11 +42,6 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     paddingHorizontal: 20,
     backgroundColor: 'green',
-  },
-  registerButton: {
-    flex: 0,
-    paddingVertical: 30,
-    paddingHorizontal: 20,
   },
 });
 
