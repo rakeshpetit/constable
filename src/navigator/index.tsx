@@ -32,7 +32,7 @@ const TabNavigator = (): React.ReactElement => (
 const HomeNavigator = (): React.ReactElement => (
   <Stack.Navigator>
     <Stack.Screen name="Home" component={Home} />
-    <Stack.Screen name="Posts" component={Post} />
+    <Stack.Screen name="Post" component={Post} />
   </Stack.Navigator>
 );
 
