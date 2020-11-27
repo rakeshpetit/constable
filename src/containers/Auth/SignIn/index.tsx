@@ -42,6 +42,9 @@ const SignIn = () => {
           onChangeText={(email) => {
             setFields({...fields, email});
           }}
+          textContentType="emailAddress"
+          keyboardType="email-address"
+          autoCapitalize="none"
           value={fields.email}
           placeholder={'name@example.com'}
         />
