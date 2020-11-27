@@ -3,7 +3,7 @@ import {View, Text, FlatList, TouchableOpacity} from 'react-native';
 import {useGetPosts} from '../../hooks';
 import styles from './styles';
 
-const Home = ({navigation}) => {
+const Home = ({navigation}: any) => {
   const posts = useGetPosts();
   return (
     <View style={styles.container}>
