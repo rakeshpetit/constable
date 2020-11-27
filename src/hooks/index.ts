@@ -1,17 +1,17 @@
 import {useQuery, useMutation} from '@apollo/react-hooks';
 import {PUBLISHED_POSTS} from '../graphql/queries';
 import {LOGIN_USER} from '../graphql/mutations';
-import {posts_posts} from '../graphql/queries/types/posts';
+import {posts} from '../graphql/queries/types/posts';
 import {LoginUserVariables} from '../graphql/mutations/types/LoginUser';
 
-const useGetPosts = (): posts_posts[] => {
+const useGetPosts = (): posts | false => {
   const {loading, error, data} = useQuery(PUBLISHED_POSTS);
   if (loading || error) {
-    return [];
+    return false;
   } else if (data) {
     return data;
   }
-  return [];
+  return false;
 };
 
 const useLogin = () => {
